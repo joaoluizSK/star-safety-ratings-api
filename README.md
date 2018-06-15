@@ -15,8 +15,7 @@ Clone the project, then running:
 
 ``npm start``
 
-
-##API Documentation
+## API Documentation
 
 After running `npm start` you can access the API Documentation using the link: 
 
@@ -30,7 +29,7 @@ To create the tests I used this npm packages:
  - <a href="http://chaijs.com/">Chai</a> - Used to assertions and test the endpoints at Vehicle API.
  - <a href="https://github.com/nock/nock">Nock</a> - Used to mock the NHTSA NCAP 5 Star Safety Ratings API responses.
 
-##Mainly packages
+## Mainly packages
 
 Another packages used during the development this application:
  - <a href="http://expressjs.com">Express</a> - Used to create the endpoints for the Vehicle API.
