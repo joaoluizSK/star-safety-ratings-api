@@ -1,0 +1,206 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a short coding assignment, in which you will be asked to implement an API in Node.js that calls a backend API to get information about crash test ratings for vehicles.",
+    "version": "1.0.0",
+    "title": "Star Safety Ratings API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "jlsk25@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8888",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "vehicle",
+      "description": "Everything about crash test ratings for vehicles"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/vehicle": {
+      "post": {
+        "tags": [
+          "vehicle"
+        ],
+        "summary": "Get information about crash test rating for vehicles",
+        "description": "Get information about crash test rating for vehicles",
+        "operationId": "getVehiclesModelsUsingBodyParams",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Parameters to get information about the vehicle to be used in the NHTSA NCAP 5 Star Safety Ratings API.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VehicleInformations"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/vehicle/{modelyear}/{manufacturer}/{model}": {
+      "get": {
+        "tags": [
+          "vehicle"
+        ],
+        "summary": "Get information about crash test rating for vehicles",
+        "description": "Get information about crash test rating for vehicles",
+        "operationId": "getVehiclesModelsUsingUrlParams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "modelyear",
+            "in": "path",
+            "description": "Year of vehicle model",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "manufacturer",
+            "in": "path",
+            "description": "Manufacturer of vehicle",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "model",
+            "in": "path",
+            "description": "Model of vehicle",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "withRating",
+            "in": "query",
+            "description": "Param used to add Rating in the result of query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseWithRating"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "VehicleInformations": {
+      "type": "object",
+      "properties": {
+        "modelYear": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "manufaturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        }
+      }
+    },
+    "VehicleResponse": {
+      "type": "object",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "VehicleId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "VehicleResponseWithRating": {
+      "type": "object",
+      "required": [
+        "Description",
+        "VehicleId"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "VehicleId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CrashRating": {
+          "type": "string"
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Results": {
+          "type": "array",
+          "xml": {
+            "name": "Results",
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/VehicleResponse"
+          }
+        }
+      }
+    },
+    "ResponseWithRating": {
+      "type": "object",
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Results": {
+          "type": "array",
+          "xml": {
+            "name": "Results",
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/VehicleResponseWithRating"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
